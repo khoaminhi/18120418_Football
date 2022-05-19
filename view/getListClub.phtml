@@ -1,0 +1,14 @@
+<table>
+    <tr>
+        <th>Club Name</th>
+        <th>Shorted Name</th>
+        <th>Show Players</th>
+    </tr>
+    <?php foreach ($listAllClub as $club): ?>
+        <tr>
+            <td><?= $club->ClubName ?></td>
+            <td><?= $club->Shortname ?></td>
+            <td><a href="getAllPlayerClub.php?action=getAClubPlayer&clubID=<?= $club->ClubID ?>">Show Players</a></td>
+        </tr>
+    <?php endforeach; ?>
+</table>

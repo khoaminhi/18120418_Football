@@ -1,0 +1,51 @@
+<style>
+    .redirectPlayerPosition{
+        display: flex;
+        position: relative;
+        top: 100px;
+        right: -400px;
+    }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>$(document).ready(function(){
+    $('#searchPlayer').click(function(){
+        let keySearch = encodeURI($('#inputSearchPlayer').val());
+        let url = 'http://localhost/18120418_Football/components/getAllPlayerClub.php?action=searchPlayer&keySearch=' + keySearch;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(data){
+                $('#searchPlayerTable').html(data);
+            }
+        });
+    });
+});</script>
+
+<div class="redirectPlayerPosition">
+    <a href="./getAllPlayerClub.php">Redirect to all player of each club!</a>
+</div>
+
+<div>
+    <input type="text" name="keySearch" placeholder="Search player" id="inputSearchPlayer" />
+    <input type="button" value="Search" id="searchPlayer" />
+</div>
+
+<div id="searchPlayerTable">
+    <table>
+        <tr>
+            <th>Full Name</th>
+            <th>Position</th>
+            <th>Number</th>
+            <th>Nationality</th>
+        </tr>
+        <?php foreach ($listAllPlayer as $player): ?>
+            <tr>
+                <td><?= $player->FullName ?></td>
+                <td><?= $player->Position ?></td>
+                <td><?= $player->Number ?></td>
+                <td><?= $player->Nationality ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</div>

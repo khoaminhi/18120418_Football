@@ -1,0 +1,13 @@
+body{
+    margin: 0 0 0 0;
+    position: relative;
+}
+
+table, th, td{
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+th{
+    text-align: left;
+}

@@ -1,0 +1,19 @@
+:root{
+    --footer-height: 60px;
+}
+
+#footer{
+    background-color: rgb(140, 202, 250);
+    display: flex;
+    position: absolute;
+    justify-content:center;
+    width: 100%;    
+    bottom: 0px;
+    height: var(--footer-height);
+}
+
+.pushUpContent{
+    height: var(--footer-height);
+    background-color: white;
+    color: white;
+}

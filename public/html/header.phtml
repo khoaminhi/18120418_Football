@@ -1,0 +1,49 @@
+<div class="logo">
+    <a href="index.php"><img src=<?php echo $cssRePath . "public/image/logo.png"?> alt="logo" /></a>
+    <p>Football Management Website</p>
+</div>
+<div class="menu">
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="/18120418_Football/components/getAllPlayer.php">1</a>
+            <a href="/18120418_Football/components/getAllClub.php">2</a>
+            <a href="/18120418_Football/components/">3</a>
+            <a href="/18120418_Football/components/">4</a>
+            <a href="/18120418_Football/components/">5</a>
+            <a href="/18120418_Football/components/">6</a>
+            <a href="/18120418_Football/components/">7</a>
+            <a href="/18120418_Football/components/">8</a>
+            <a href="/18120418_Football/components/">9</a>
+            <a href="/18120418_Football/components/">10</a>
+            <a href="/18120418_Football/components/">11</a>
+        </div>
+    </div>
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="about.php">About</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <li><a href="login.php">Login</a></li>
+    </ul>
+</div>
+<script>
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
