@@ -5,9 +5,28 @@ body{
 
 table, th, td{
     border-collapse: collapse;
-    border: 1px solid black;
+    border: 1px solid rgb(131, 188, 237);
 }
 
 th{
     text-align: left;
+}
+
+input[type=button]{
+    color: rgb(69, 50, 239);
+    background-color: rgb(135, 214, 243);
+    border: 2px solid rgb(69, 50, 239);
+    border-radius: 5px;
+}
+
+input{
+    border: 2px solid rgb(131, 188, 237);
+    border-radius: 3px;
+}
+
+caption{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(131, 188, 237);
 }

@@ -17,10 +17,35 @@ if (isset($_GET["clubID"])) {
     $clubID = $_GET["clubID"];
 }
 
+switch ($action) {
+    case "getAllPlayer":
+        $player->getAllPlayer();
+        break;
+    case "getAllPlayerClub":
+        $player->getAllPlayerClub();
+        break;
+    case "getAClubPlayer":
+        $player->getAClubPlayer();
+        break;
+    case "searchPlayer":
+        searchPlayer($player, $keySearch);
+        break;
+    case "searchPlayerAdvanced":
+        $player->advancedSearch();
+        break;
+    default:
+        $player->getAllPlayerClub();
+        break;
+}
+
 function searchPlayer($player, $keySearch){
     $listPlayer = $player->searchPlayer($keySearch);
     if($listPlayer == -1){
         echo "Please enter a key search. Don't leave it blank. Controller!";
+        return;
+    }
+    if($listPlayer == null){
+        echo "No result found.";
         return;
     }
     
@@ -53,26 +78,5 @@ function searchPlayer($player, $keySearch){
     }
     $result .= "</table>";
     echo $result;
-}
-
-switch ($action) {
-    case "getAllPlayer":
-        $player->getAllPlayer();
-        break;
-    case "getAllPlayerClub":
-        $player->getAllPlayerClub();
-        break;
-    case "getAClubPlayer":
-        $player->getAClubPlayer();
-        break;
-    case "searchPlayer":
-        if($_REQUEST["keySearch"]=="")
-            echo "Please enter a key search. Don't leave it blank.";
-        else
-            searchPlayer($player, $keySearch);
-        break;
-    default:
-        $player->getAllPlayerClub();
-        break;
 }
 ?>
