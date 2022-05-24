@@ -145,7 +145,7 @@ class PlayerController{
     }
 
     public function modifyPlayer(){
-        $playerID = $_GET["playerID"];
+        $playerID = "";
         $playerName="";
         $playerPosition="";
         $playerNumber="";
@@ -153,6 +153,9 @@ class PlayerController{
         $playerDOB ="";
         $playerClubID="";
 
+        if(isset($_POST["playerID"]) and $_POST["playerID"] != ""){
+            $playerID = $_POST["playerID"];
+        }
         if(isset($_POST["playerName"]) and $_POST["playerName"] != ""){
             $playerName = $_POST["playerName"];
         }
@@ -165,7 +168,7 @@ class PlayerController{
         if(isset($_POST["playerNationality"]) and $_POST["playerNationality"] != ""){
             $playerNationality = $_POST["playerNationality"];
         }
-        if(isset($_POST["playerClub"]) and $_POST["playerClub"] != ""){
+        if(isset($_POST["playerClubID"]) and $_POST["playerClubID"] != ""){
             $playerClubID = $_POST["playerClubID"];
         }
         if(isset($_POST["playerDOB"]) and $_POST["playerDOB"] != ""){

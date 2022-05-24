@@ -43,17 +43,19 @@
 <script>
     $(document).ready(function () {
         $('#modifyPlayerButton').click(function () {
+            let playerID = $('#playerID').val();
             let playerName = encodeURI($('#playerNameInput').val());
             let playerPosition = encodeURI($('#playerPositionInput').val());
-            let playerClub = encodeURI($('#playerClubInput').val());
+            let playerClubID = encodeURI($('#playerClubInput').val());
             let playerNumber = encodeURI($('#playerNumberInput').val());
             let playerNationality = encodeURI($('#playerNationalityInput').val());
             let playerDOB = encodeURI($('#playerDOBInput').val());
-            let url = 'http://localhost/18120418_Football/components/addModifyPlayer.php?action=modify';
+            let url = 'addModifyPlayer.php?action=modify';
             let data = {
+                playerID,
                 playerName,
                 playerPosition,
-                playerClub,
+                playerClubID,
                 playerNumber,
                 playerNationality,
                 playerDOB,
@@ -64,14 +66,15 @@
                 data,
                 async: true,
                 success: function (data) {
-                    $('#modifyPlayerTable').html(data);
-                }
+                    $('#resultModifyPlayer').html(data);
+                },
             });
         });
     });
 </script>
 
 <div class="alignAddPlayerForm">
+    <input type="hidden" id="playerID" value=<?php echo "'" . $_REQUEST['PlayerID'] . "'";?>>
     <div>
         <label>Full Name:</label>
         <input type="text" id="playerNameInput" value=<?php echo "'" . $_REQUEST['FullName'] . "'";?>>
@@ -109,3 +112,5 @@
         </button>
     </div>
 </div>
+
+<div id="resultModifyPlayer"></div>

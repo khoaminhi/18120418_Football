@@ -27,11 +27,11 @@ foreach($listPlayer as $p){
         <td>";
     $link='/18120418_Football/components/addModifyPlayer?action=viewModify';
     $link.='&PlayerID='.$p->PlayerID;
-    $link.='&ClubID="'.$p->ClubID .'"';
-    $link.='&ClubName="'.$p->ClubName .'"';
-    $link.='&Nationality="'.$p->Nationality.'"';
+    $link.='&ClubID='.$p->ClubID;
+    $link.='&ClubName='.$p->ClubName;
+    $link.='&Nationality='.$p->Nationality;
     $link.='&Position='.$p->Position;
-    $link.='&FullName="'.$p->FullName . '"';
+    $link.='&FullName='.$p->FullName;
     $link.='&Number='.$p->Number;
     $link.='&DOB='.$p->DOB;
     $result .= "<a href='$link'>modify</a>" . "</td></tr>";

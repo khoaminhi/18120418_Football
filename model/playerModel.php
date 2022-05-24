@@ -191,21 +191,26 @@ class PlayerModel{
     public static function updatePlayer($playerID, $playerName, $playerPosition, $playerNumber, 
         $playerNationality, $playerClubID, $playerDOB){
         dbconnect::connect();
-        $getClubIDQuery = "SELECT count(ClubID) FROM club where ClubID = '$playerClubID'";
+        $getClubIDQuery = "SELECT count(ClubID) FROM club where ClubID = $playerClubID";
         $result = dbconnect::$conn->query($getClubIDQuery);
+        if(!$result){
+            dbconnect::disconnect();
+            echo "<h3>Club ID is not exist! Please check again!</h3>";
+            return false;
+        }
         $row = $result->fetch_assoc();
         if($row["count(ClubID)"] == 0){
             dbconnect::disconnect();
-            echo "<h3>Club is not exist! Please check again!</h3>";
+            echo "<h3>Club ID is not exist! Please check again!</h3>";
             return false;
         }
         
         $query = "UPDATE player SET FullName = '$playerName', Position = '$playerPosition',  
-            Number = '$playerNumber', Nationality='$playerNationality', ClubID='$ClubID', DOB='$DOB'
+            Number = '$playerNumber', Nationality='$playerNationality', ClubID='$playerClubID', DOB='$playerDOB'
             where PlayerID= $playerID";
         $result=dbconnect::$conn->query($query);
         dbconnect::disconnect();
-        return $result;
+        return true;
     }
 }
 ?>

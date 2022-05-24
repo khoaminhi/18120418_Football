@@ -54,7 +54,7 @@
     $(document).ready(function () {
         $('#searchPlayer').click(function () {
             let keySearch = encodeURI($('#inputSearchPlayer').val());
-            let url = 'http://localhost/18120418_Football/components/getAllPlayerClub.php?action=searchPlayer&keySearch=' + keySearch;
+            let url = '/18120418_Football/components/getAllPlayerClub.php?action=searchPlayer&keySearch=' + keySearch;
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -72,7 +72,7 @@
             let playerClub = encodeURI($('#playerClubInput').val());
             let playerNumber = encodeURI($('#playerNumberInput').val());
             let playerNationality = encodeURI($('#playerNationalityInput').val());
-            let url = 'http://localhost/18120418_Football/components/getAllPlayerClub.php?action=searchPlayerAdvanced';
+            let url = '/18120418_Football/components/getAllPlayerClub.php?action=searchPlayerAdvanced';
             let data = {
                 playerName,
                 playerPosition,
