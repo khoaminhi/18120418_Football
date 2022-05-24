@@ -1,0 +1,40 @@
+<?php
+$result = "<table>
+<tr>
+    <th>Full Name</th>
+    <th>Position</th>
+    <th>Number</th>
+    <th>Nationality</th>
+    <th>Club</th>
+</tr>";
+foreach($listPlayer as $p){
+    $result = $result . "<tr>
+        <td>
+            $p->FullName
+        </td>
+        <td>
+            $p->Position
+        </td>
+        <td>
+            $p->Number
+        </td>
+        <td>
+            $p->Nationality
+        </td>
+        <td>
+            $p->ClubName
+        </td>
+        <td>";
+    $link='/18120418_Football/components/addModifyPlayer?action=viewModify';
+    $link.='&PlayerID='.$p->PlayerID;
+    $link.='&ClubID="'.$p->ClubID .'"';
+    $link.='&ClubName="'.$p->ClubName .'"';
+    $link.='&Nationality="'.$p->Nationality.'"';
+    $link.='&Position='.$p->Position;
+    $link.='&FullName="'.$p->FullName . '"';
+    $link.='&Number='.$p->Number;
+    $link.='&DOB='.$p->DOB;
+    $result .= "<a href='$link'>modify</a>" . "</td></tr>";
+}
+$result .= "</table>";
+echo $result;

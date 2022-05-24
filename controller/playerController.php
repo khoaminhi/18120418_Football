@@ -43,8 +43,17 @@ class PlayerController{
         if(!isset($keySearch) or $keySearch == "")
             return -1;
         else{
-            $result = PlayerModel::searchPlayer($keySearch);
-            return $result;
+            $listPlayer = PlayerModel::searchPlayer($keySearch);
+            if($listPlayer == -1){
+                echo "Please enter a key search. Don't leave it blank. Controller!";
+                return;
+            }
+            if($listPlayer == null){
+                echo "No result found.";
+                return;
+            }
+            include "./../view/viewSearchResult.phtml";
+            return;
         }
     }
 
@@ -80,35 +89,109 @@ class PlayerController{
             echo "No result found.";
             return;
         }
-        
-        $result = "<table>
-            <tr>
-                <th>Full Name</th>
-                <th>Position</th>
-                <th>Number</th>
-                <th>Nationality</th>
-                <th>Club</th>
-            </tr>";
-        foreach($listPlayer as $p){
-            $result = $result . "<tr>
-            <td>
-                $p->FullName
-            </td>
-            <td>
-                $p->Position
-            </td>
-            <td>
-                $p->Number
-            </td>
-            <td>
-                $p->Nationality
-            </td>
-            <td>
-                $p->ClubName
-            </td>
-            </tr>";
+        include "./../view/viewSearchResult.phtml";
+    }
+    
+    public function addPlayer(){
+        $playerName="";
+        $playerPosition="";
+        $playerNumber="";
+        $playerNationality="";
+        $playerDOB ="";
+        $playerClubID="";
+
+        if(isset($_POST["playerName"]) and $_POST["playerName"] != ""){
+            $playerName = $_POST["playerName"];
         }
-        $result .= "</table>";
-        echo $result;
+        if(isset($_POST["playerPosition"]) and $_POST["playerPosition"] != ""){
+            $playerPosition = $_POST["playerPosition"];
+        }
+        if(isset($_POST["playerNumber"]) and $_POST["playerNumber"] != ""){
+            $playerNumber = $_POST["playerNumber"];
+        }
+        if(isset($_POST["playerNationality"]) and $_POST["playerNationality"] != ""){
+            $playerNationality = $_POST["playerNationality"];
+        }
+        if(isset($_POST["playerClubID"]) and $_POST["playerClubID"] != ""){
+            $playerClubID = $_POST["playerClubID"];
+        }
+        if(isset($_POST["playerDOB"]) and $_POST["playerDOB"] != ""){
+            $playerDOB = $_POST["playerDOB"];
+        }
+
+        $result=true;
+        $result = PlayerModel::createPlayer($playerName, $playerPosition, $playerNumber, 
+            $playerNationality, $playerClubID, $playerDOB);
+        if($result==true){
+            echo "<script>alert('Add player successfully!');</script>";
+        }
+        else{
+            echo "<script>alert('Add player failed!');</script>";
+        }
+        require_once "./../model/clubModel.php";
+        $this->getAllClub();
+    }
+
+    public function getAllClub(){
+        require_once "./../model/clubModel.php";
+        $clubs = ClubModel::getAllClub();
+        $cssRePath = "./../";
+        $CSS_PATH = "./../template/index/indexCSS.php";
+        $HEADER_PATH = "./../public/html/header.phtml";
+        $FOOTER_PATH = "./../public/html/footer.phtml";
+
+        $CONTENT_PATH = "./../view/addPlayer.phtml";
+        require_once("./../template/template.phtml");
+    }
+
+    public function modifyPlayer(){
+        $playerID = $_GET["playerID"];
+        $playerName="";
+        $playerPosition="";
+        $playerNumber="";
+        $playerNationality="";
+        $playerDOB ="";
+        $playerClubID="";
+
+        if(isset($_POST["playerName"]) and $_POST["playerName"] != ""){
+            $playerName = $_POST["playerName"];
+        }
+        if(isset($_POST["playerPosition"]) and $_POST["playerPosition"] != ""){
+            $playerPosition = $_POST["playerPosition"];
+        }
+        if(isset($_POST["playerNumber"]) and $_POST["playerNumber"] != ""){
+            $playerNumber = $_POST["playerNumber"];
+        }
+        if(isset($_POST["playerNationality"]) and $_POST["playerNationality"] != ""){
+            $playerNationality = $_POST["playerNationality"];
+        }
+        if(isset($_POST["playerClub"]) and $_POST["playerClub"] != ""){
+            $playerClubID = $_POST["playerClubID"];
+        }
+        if(isset($_POST["playerDOB"]) and $_POST["playerDOB"] != ""){
+            $playerDOB = $_POST["playerDOB"];
+        }
+
+        $result=true;
+        $result = PlayerModel::updatePlayer($playerID, $playerName, $playerPosition, $playerNumber, 
+            $playerNationality, $playerClubID, $playerDOB);
+        if($result==true){
+            echo "<script>alert('Modify player successfully!');</script>";
+        }
+        else{
+            echo "<script>alert('Modify player failed!');</script>";
+        }
+    }
+
+    public function viewModifyPlayer(){
+        require_once "./../model/clubModel.php";
+        $clubs = ClubModel::getAllClub();
+        $cssRePath = "./../";
+        $CSS_PATH = "./../template/index/indexCSS.php";
+        $HEADER_PATH = "./../public/html/header.phtml";
+        $FOOTER_PATH = "./../public/html/footer.phtml";
+
+        $CONTENT_PATH = "./../view/modifyPlayer.phtml";
+        require_once("./../template/template.phtml");
     }
 } 

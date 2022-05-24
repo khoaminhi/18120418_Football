@@ -144,6 +144,7 @@
                 <th>Number</th>
                 <th>Nationality</th>
                 <th>Club</th>
+                <th>Modify</th>
             </tr>
             <?php foreach ($listAllPlayer as $player): ?>
             <tr>
@@ -161,6 +162,19 @@
                 </td>
                 <td>
                     <?= $player->ClubName?>
+                </td>
+                <td>
+                    <?php $link="/18120418_Football/components/addModifyPlayer?action=viewModify";
+                    $link.="&PlayerID=".$player->PlayerID;
+                    $link.="&ClubID=".$player->ClubID;
+                    $link.="&ClubName=".$player->ClubName;
+                    $link.="&Nationality=".$player->Nationality;
+                    $link.="&Position=".$player->Position;
+                    $link.="&FullName=".$player->FullName;
+                    $link.="&Number=".$player->Number;   
+                    $link.='&DOB='.$player->DOB;
+                    ?>
+                    <a href="<?php echo $link?>">modify</a>
                 </td>
             </tr>
             <?php endforeach; ?>

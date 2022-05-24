@@ -40,7 +40,7 @@ class PlayerModel{
 
     public static function getAllPlayerClub(){
         dbconnect::connect();
-        $query = "SELECT FullName, Position, Nationality, Number, ClubName "
+        $query = "SELECT PlayerID, FullName, Position, Nationality, Number, DOB, ClubName, club.ClubID "
          ."FROM player left JOIN club ON player.ClubID = club.ClubID";
         $result = dbconnect::$conn->query($query);
         $listAllPlayer = array();
@@ -49,11 +49,14 @@ class PlayerModel{
         {            
             foreach ($result as $row) {
                 $player = new PlayerModel();
+                $player->PlayerID = $row["PlayerID"];
                 $player->FullName = $row["FullName"];
                 $player->Position = $row["Position"];
                 $player->Nationality = $row["Nationality"];
                 $player->Number=$row["Number"];
-                $player->ClubName=$row["ClubName"];            
+                $player->DOB=$row["DOB"];
+                $player->ClubName=$row["ClubName"];
+                $player->ClubID=$row["ClubID"];            
                 $listAllPlayer[] = $player;
             }
         }
@@ -63,7 +66,7 @@ class PlayerModel{
 
     public static function getAClubPlayer($clubID){
         dbconnect::connect();
-        $query = "SELECT FullName, Position, Nationality, Number, ClubName "
+        $query = "SELECT PlayerID, FullName, Position, Nationality, Number, DOB, ClubName, club.ClubID "
          ."FROM player left JOIN club ON player.ClubID = club.ClubID "
          ."where player.ClubID=".$clubID;
         $result = dbconnect::$conn->query($query);
@@ -73,11 +76,14 @@ class PlayerModel{
         {            
             foreach ($result as $row) {
                 $player = new PlayerModel();
+                $player->PlayerID = $row["PlayerID"];
                 $player->FullName = $row["FullName"];
                 $player->Position = $row["Position"];
                 $player->Nationality = $row["Nationality"];
                 $player->Number=$row["Number"];
-                $player->ClubName=$row["ClubName"];            
+                $player->DOB=$row["DOB"];
+                $player->ClubName=$row["ClubName"];
+                $player->ClubID=$row["ClubID"];            
                 $listAllPlayer[] = $player;
             }
         }
@@ -87,7 +93,7 @@ class PlayerModel{
 
     public static function searchPlayer($keySearch){
         dbconnect::connect();
-        $query = "SELECT FullName, Position, Nationality, Number, ClubName "
+        $query = "SELECT PlayerID, FullName, Position, Nationality, Number, DOB, ClubName, club.ClubID "
          ."FROM player left JOIN club ON player.ClubID = club.ClubID "
          ."where player.FullName like '%$keySearch%' or player.Number like '%$keySearch%' "
          . "or player.Position like '%$keySearch%' or player.Nationality like '%$keySearch%' "
@@ -98,11 +104,14 @@ class PlayerModel{
         {            
             foreach ($result as $row) {
                 $player = new PlayerModel();
+                $player->PlayerID = $row["PlayerID"];
                 $player->FullName = $row["FullName"];
                 $player->Position = $row["Position"];
                 $player->Nationality = $row["Nationality"];
                 $player->Number=$row["Number"];
-                $player->ClubName=$row["ClubName"];            
+                $player->DOB=$row["DOB"];
+                $player->ClubName=$row["ClubName"];
+                $player->ClubID=$row["ClubID"];            
                 $listAllPlayer[] = $player;
             }
         }
@@ -153,5 +162,50 @@ class PlayerModel{
         return $listAllPlayer;
     }
 
+    public static function createPlayer( $playerName, $playerPosition, $playerNumber, 
+        $playerNationality, $playerClubID, $playerDOB){
+        dbconnect::connect();
+        $getClubIDQuery = "SELECT count(ClubID) FROM club where ClubID = '$playerClubID'";
+        $result = dbconnect::$conn->query($getClubIDQuery);
+        $row = $result->fetch_assoc();
+        if($row["count(ClubID)"] == 0){
+            dbconnect::disconnect();
+            echo "<h3>Club is not exist! Please check again!</h3>";
+            return false;
+        }
+        
+        $getMaxIDPlayerQuery = "SELECT MAX(PlayerID) as maxID FROM player";
+        $result = dbconnect::$conn->query($getMaxIDPlayerQuery);
+        $row = $result->fetch_assoc();
+        $maxID = $row["maxID"];
+        $maxID++;
+    
+        $query = "INSERT INTO player(PlayerID, FullName, Position, 
+            Number, Nationality, ClubID, DOB) VALUES ($maxID, '$playerName', '$playerPosition', '$playerNumber', 
+            '$playerNationality', '$playerClubID', '$playerDOB')";
+        $result = dbconnect::$conn->query($query);
+        dbconnect::disconnect();
+        return $result;
+    }
+
+    public static function updatePlayer($playerID, $playerName, $playerPosition, $playerNumber, 
+        $playerNationality, $playerClubID, $playerDOB){
+        dbconnect::connect();
+        $getClubIDQuery = "SELECT count(ClubID) FROM club where ClubID = '$playerClubID'";
+        $result = dbconnect::$conn->query($getClubIDQuery);
+        $row = $result->fetch_assoc();
+        if($row["count(ClubID)"] == 0){
+            dbconnect::disconnect();
+            echo "<h3>Club is not exist! Please check again!</h3>";
+            return false;
+        }
+        
+        $query = "UPDATE player SET FullName = '$playerName', Position = '$playerPosition',  
+            Number = '$playerNumber', Nationality='$playerNationality', ClubID='$ClubID', DOB='$DOB'
+            where PlayerID= $playerID";
+        $result=dbconnect::$conn->query($query);
+        dbconnect::disconnect();
+        return $result;
+    }
 }
 ?>

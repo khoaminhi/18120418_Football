@@ -2,6 +2,7 @@
 require_once "./../config/dbconnect.php";
 require_once "./../controller/playerController.php";
 require_once "./../model/playerModel.php";
+
 $player=new PlayerController();
 $action="";
 if (isset($_REQUEST["action"]))
@@ -10,11 +11,17 @@ if (isset($_REQUEST["action"]))
 }
 
 switch ($action) {
-    case "create":
-        $player->getAllPlayer();
+    case "add":
+        $player->addPlayer();
         break;
-    case "update":
-        $player->getAllPlayerClub();
+    case "modify":
+        $player->modifyPlayer();
+        break;
+    case "viewModify":
+        $player->viewModifyPlayer();
+        break;
+    default:
+        $player->getAllClub();
         break;
 }
 ?>

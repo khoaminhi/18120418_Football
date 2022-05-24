@@ -28,7 +28,7 @@ switch ($action) {
         $player->getAClubPlayer();
         break;
     case "searchPlayer":
-        searchPlayer($player, $keySearch);
+        $player->searchPlayer($keySearch);
         break;
     case "searchPlayerAdvanced":
         $player->advancedSearch();
@@ -36,47 +36,5 @@ switch ($action) {
     default:
         $player->getAllPlayerClub();
         break;
-}
-
-function searchPlayer($player, $keySearch){
-    $listPlayer = $player->searchPlayer($keySearch);
-    if($listPlayer == -1){
-        echo "Please enter a key search. Don't leave it blank. Controller!";
-        return;
-    }
-    if($listPlayer == null){
-        echo "No result found.";
-        return;
-    }
-    
-    $result = "<table>
-        <tr>
-            <th>Full Name</th>
-            <th>Position</th>
-            <th>Number</th>
-            <th>Nationality</th>
-            <th>Club</th>
-        </tr>";
-    foreach($listPlayer as $p){
-        $result = $result . "<tr>
-        <td>
-            $p->FullName
-        </td>
-        <td>
-            $p->Position
-        </td>
-        <td>
-            $p->Number
-        </td>
-        <td>
-            $p->Nationality
-        </td>
-        <td>
-            $p->ClubName
-        </td>
-        </tr>";
-    }
-    $result .= "</table>";
-    echo $result;
 }
 ?>

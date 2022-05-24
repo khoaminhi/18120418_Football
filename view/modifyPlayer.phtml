@@ -1,0 +1,111 @@
+<style>
+    div.alignAddPlayerForm div input {
+        width: 100%;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid rgb(131 188 237);
+        border-radius: 0%;
+        color: rgb(131 188 237);
+    }
+
+    div.alignAddPlayerForm div input:focus {
+        outline: none;
+    }
+
+    div div select {
+        width: 100%;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid rgb(131 188 237);
+        color: rgb(131 188 237);
+    }
+
+    .alignAddPlayerForm>div {
+        margin-top: 20px;
+    }
+
+    .alignAddPlayerForm > div > label {
+        font-size: 20px;
+        font-weight: bold;
+        color: rgb(131 188 237);
+    }
+
+    div.alignAddPlayerForm > div > button {
+        background-color: rgb(131 188 237);
+        border: 2px solid rgb(82, 165, 237);
+        border-radius: 5px;
+    }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#modifyPlayerButton').click(function () {
+            let playerName = encodeURI($('#playerNameInput').val());
+            let playerPosition = encodeURI($('#playerPositionInput').val());
+            let playerClub = encodeURI($('#playerClubInput').val());
+            let playerNumber = encodeURI($('#playerNumberInput').val());
+            let playerNationality = encodeURI($('#playerNationalityInput').val());
+            let playerDOB = encodeURI($('#playerDOBInput').val());
+            let url = 'http://localhost/18120418_Football/components/addModifyPlayer.php?action=modify';
+            let data = {
+                playerName,
+                playerPosition,
+                playerClub,
+                playerNumber,
+                playerNationality,
+                playerDOB,
+            };
+            $.ajax({
+                url,
+                type: 'POST',
+                data,
+                async: true,
+                success: function (data) {
+                    $('#modifyPlayerTable').html(data);
+                }
+            });
+        });
+    });
+</script>
+
+<div class="alignAddPlayerForm">
+    <div>
+        <label>Full Name:</label>
+        <input type="text" id="playerNameInput" value=<?php echo "'" . $_REQUEST['FullName'] . "'";?>>
+    </div>
+    <div>
+        <label>Position:</label>
+        <input type="text" id="playerPositionInput" value=<?php echo "'" . $_REQUEST['Position'] . "'";?>>
+    </div>
+    <div>
+        <label>Number:</label>
+        <input type="text" id="playerNumberInput" value=<?php echo "'" . $_REQUEST['Number'] . "'";?>>
+    </div>
+    <div>
+        <label>Nationality:</label>
+        <input type="text" id="playerNationalityInput" value=<?php echo "'" . $_REQUEST['Nationality'] . "'";?>>
+    </div>
+    <div>
+        <label>DOB:</label>
+        <input type="text" id="playerDOBInput" value=<?php echo "'" . $_REQUEST['DOB'] . "'";?>>
+    </div>
+    <div>
+        <label>Club(Click to change to ID):</label>
+        <input type="text" id="playerClubInput" list="club-datalist" value=<?php echo "'" . $_REQUEST['ClubName'] . "'";?>>
+        <datalist name="playerClubID" id="club-datalist">
+            <?php
+                foreach ($clubs as $club) {
+                    echo "<option value='$club->ClubID'>$club->ClubName</option>";
+                }
+            ?>
+        </datalist>
+    </div>
+    <div>
+        <button type="button" value="Modify" id="modifyPlayerButton">
+            Modify 
+        </button>
+    </div>
+</div>

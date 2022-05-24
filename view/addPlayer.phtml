@@ -1,0 +1,85 @@
+<style>
+    form.alignAddPlayerForm div input {
+        width: 100%;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid rgb(131 188 237);
+        border-radius:0%;
+        color: rgb(131 188 237);
+    }
+    form.alignAddPlayerForm div input:focus {
+        outline: none;
+    }
+    
+    form div select {
+        width: 100%;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid rgb(131 188 237);
+        color: rgb(131 188 237);
+    }
+    .alignAddPlayerForm > div {
+        margin-top: 20px;
+    }
+    .alignAddPlayerForm > div > label {
+        font-size: 20px;
+        font-weight: bold;
+        color: rgb(131 188 237);
+    }
+    .alignAddPlayerForm > div > button {
+        background-color: rgb(131 188 237);
+        border: 2px solid rgb(82, 165, 237);
+        border-radius: 5px;
+    }
+
+</style>
+
+<form action="addModifyPlayer.php?action=add" method="post" class="alignAddPlayerForm" >
+    <div>
+        <label>Full Name:</label>
+        <input type="text" name="playerName"/>
+    </div>
+    <div>
+        <label>Position:</label>
+        <input type="text" name="playerPosition"/>
+    </div>
+    <div>
+        <label>Number:</label>
+        <input type="text" name="playerNumber"/>
+    </div>
+    <div>
+        <label>Nationality:</label>
+        <input type="text" name="playerNationality"/>
+    </div>
+    <div>
+        <label>DOB:</label>
+        <input type="text" name="playerDOB"/>
+    </div>
+
+    <!-- <div>
+        <label>Club:</label>
+        <select name="playerClubID">
+                <option value="1">FC Barcelona</option>
+                <option value="2">Real Madrid</option>
+                <option value="3">Manchester United</option>
+                <option value="4">FC Bayern Munich</option>
+        </select>
+    </div> -->
+    <div>
+        <label>Club(Click to change to ID):</label>
+        <input type="text" name="playerClubID" list="club-datalist">
+        <datalist name="playerClubID" id="club-datalist">
+            <?php
+                foreach ($clubs as $club) {
+                    echo "<option value='$club->ClubID'>$club->ClubName</option>";
+                }
+            ?>
+        </datalist>
+    </div>
+    <div>
+        <!--onclick="window.location.href='addModifyPlayer.php'" -->
+        <button type="submit">ADD</button> 
+    </div>
+</form>
