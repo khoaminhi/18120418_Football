@@ -1,14 +1,171 @@
-<table>
-    <tr>
-        <th>Club Name</th>
-        <th>Shorted Name</th>
-        <th>Show Players</th>
-    </tr>
-    <?php foreach ($listAllClub as $club): ?>
-        <tr>
-            <td><?= $club->ClubName ?></td>
-            <td><?= $club->Shortname ?></td>
-            <td><a href="getAllPlayerClub.php?action=getAClubPlayer&clubID=<?= $club->ClubID ?>">Show Players</a></td>
-        </tr>
-    <?php endforeach; ?>
-</table>
+<style>
+    .positionAtRight {
+        display: flex;
+        position: relative;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .clubTable {
+        margin-right: 40px;
+    }
+
+    .alignRightAddButton {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .editClubButton {
+        background-color: rgb(131 188 237);
+        border: 2px solid rgb(82, 165, 237);
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    form.alignAddPlayerForm div input {
+        width: 100%;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid rgb(131 188 237);
+        border-radius: 0%;
+        color: rgb(131 188 237);
+    }
+
+    form.alignAddPlayerForm div input:focus {
+        outline: none;
+    }
+
+    form div select {
+        width: 100%;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid rgb(131 188 237);
+        color: rgb(131 188 237);
+    }
+
+    .alignAddPlayerForm>div {
+        margin-top: 20px;
+    }
+
+    .alignAddPlayerForm>div>label {
+        font-size: 20px;
+        font-weight: bold;
+        color: rgb(131 188 237);
+    }
+
+    .alignAddPlayerForm>div>button {
+        background-color: rgb(131 188 237);
+        border: 2px solid rgb(82, 165, 237);
+        border-radius: 5px;
+        height: 25px;
+        width: 50px;
+        text-align: center;
+    }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.editClubButton').click(function () {
+            let clubID = encodeURI($(this).val());
+            let clubName = encodeURI($('#clubName' + clubID).text());
+            let clubShortName = encodeURI($('#clubShortName' + clubID).text());
+            let clubStadiumID = encodeURI($('#clubStadiumID' + clubID).text());
+            let clubCoachID = encodeURI($('#clubCoachID' + clubID).text());
+            let url = 'club.php?action=modify';
+            let data = {
+                clubID: clubID,
+                clubName: clubName,
+                clubShortName: clubShortName,
+                clubStadiumID: clubStadiumID,
+                clubCoachID: clubCoachID
+            };
+            $.ajax({
+                url,
+                type: 'POST',
+                data,
+                async: true,
+                success: function (data) {
+                    $('#resultEditClub').html(data);
+                },
+            });
+        });
+    });
+</script>
+
+<div class="positionAtRight">
+    <div class="clubTable">
+        <table>
+            <tr>
+                <th>Club Name</th>
+                <th>Shorted Name</th>
+                <th>Stadium ID</th>
+                <th>Coach ID</th>
+                <th>Show Players</th>
+                <th>Edit</th>
+            </tr>
+            <!-- Note! The text() jQuery function will get all character in tag which can contain breakline, space... -->
+            <!--    You don't break the new line in td tag and only one line, as you can see below. -->
+            <!--    You can check that in the browser, inspect and then click the text inside the td tag to validate. -->
+            <!--    You can use the innerText from javascript or document.getElementByID().innerText instead of-->
+            <?php foreach ($listAllClub as $club): ?>
+            <tr value="<?= $club->ClubID ?>" class="tableRowClubID">
+                <td contenteditable="true" id=<?= "clubName" . $club->ClubID?>><?= $club->ClubName ?></td>
+                <td contenteditable="true" id=<?= "clubShortName" . $club->ClubID?>><?= $club->Shortname ?></td>
+                <td contenteditable="true" id=<?= "clubStadiumID".$club->ClubID?>><?= $club->StadiumID ?></td>
+                <td contenteditable="true" id=<?= "clubCoachID".$club->ClubID?>><?= $club->CoachID ?></td>
+                <td><a href="getAllPlayerClub.php?action=getAClubPlayer&clubID=<?= $club->ClubID ?>">Show Players</a>
+                </td>
+                <td>
+                    <button value="<?= $club->ClubID ?>" class="editClubButton">Edit</button>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+
+    <div>
+        <form action="club.php?action=add" method="post" class="alignAddPlayerForm">
+            <div>
+                <label>CLub Name:</label>
+                <input type="text" name="clubName" />
+            </div>
+            <div>
+                <label>Short Name:</label>
+                <input type="text" name="clubShortName" />
+            </div>
+            <div>
+                <label>Stadium ID(Click to change to ID):</label>
+                <input type="text" name="playerClubID" list="club-stadiumid">
+                <datalist name="clubStadiumID" id="club-stadiumid">
+                    <?php
+                        foreach ($listAllClub as $club) {
+                            echo "<option value='$club->StadiumID'>$club->StadiumID</option>";
+                        }
+                    ?>
+                </datalist>
+            </div>
+            <div>
+                <label>Coach ID(Click to change to ID):</label>
+                <input type="text" name="playerClubID" list="club-coachid">
+                <datalist name="clubCoachID" id="club-coachid">
+                    <?php
+                        foreach ($listAllClub as $club) {
+                            echo "<option value='$club->CoachID'>$club->CoachID</option>";
+                        }
+                    ?>
+                </datalist>
+            </div>
+            <div class="alignRightAddButton">
+                <!--onclick="window.location.href='addModifyPlayer.php'" -->
+                <button type="submit">ADD</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="resultEditClub">
+
+</div>

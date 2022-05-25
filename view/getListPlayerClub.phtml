@@ -145,6 +145,7 @@
                 <th>Nationality</th>
                 <th>Club</th>
                 <th>Modify</th>
+                <th>Remove Player</th>
             </tr>
             <?php foreach ($listAllPlayer as $player): ?>
             <tr>
@@ -175,6 +176,9 @@
                     $link.='&DOB='.$player->DOB;
                     ?>
                     <a href="<?php echo $link?>">modify</a>
+                </td>
+                <td>
+                    <input type="button" value="Delete">
                 </td>
             </tr>
             <?php endforeach; ?>

@@ -6,6 +6,8 @@ $result = "<table>
     <th>Number</th>
     <th>Nationality</th>
     <th>Club</th>
+    <th>Edit</th>
+    <th>Remove</th>
 </tr>";
 foreach($listPlayer as $p){
     $result = $result . "<tr>
@@ -34,7 +36,7 @@ foreach($listPlayer as $p){
     $link.='&FullName='.$p->FullName;
     $link.='&Number='.$p->Number;
     $link.='&DOB='.$p->DOB;
-    $result .= "<a href='$link'>modify</a>" . "</td></tr>";
+    $result .= "<a href='$link'>modify</a>" . "</td><td><input type='button' value='Delete'></td></tr>";
 }
 $result .= "</table>";
 echo $result;
