@@ -20,6 +20,9 @@ switch ($action) {
     case "viewModify":
         $player->viewModifyPlayer();
         break;
+    case "delete":
+        $player->deletePlayer();
+        break;
     default:
         $player->getAllClub();
         break;

@@ -197,4 +197,19 @@ class PlayerController{
         $CONTENT_PATH = "./../view/modifyPlayer.phtml";
         require_once("./../template/template.phtml");
     }
+
+    public function deletePlayer(){
+        $playerID = "";
+        if(isset($_POST["playerID"]) and $_POST["playerID"] != ""){
+            $playerID = $_POST["playerID"];
+        }
+        $result=true;
+        $result = PlayerModel::deletePlayer($playerID);
+        if($result==true){
+            echo "<script>alert('Delete player successfully!');</script>";
+        }
+        else{
+            echo "<script>alert('Delete player failed!');</script>";
+        }
+    }
 } 

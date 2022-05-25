@@ -212,5 +212,27 @@ class PlayerModel{
         dbconnect::disconnect();
         return true;
     }
+
+    public static function deletePlayer($playerID){
+        try{
+            dbconnect::connect();
+            $query = "SET FOREIGN_KEY_CHECKS=0;";
+            dbconnect::$conn->query($query);
+            $query = "DELETE FROM player WHERE PlayerID = $playerID";
+            $result = dbconnect::$conn->query($query);
+            $query = "SET FOREIGN_KEY_CHECKS=1;";
+            dbconnect::$conn->query($query);
+            return $result;
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+        finally{
+            echo "finally";
+            $query = "SET FOREIGN_KEY_CHECKS=1";
+            dbconnect::$conn->query($query);
+            dbconnect::disconnect();
+        }
+    }
 }
 ?>

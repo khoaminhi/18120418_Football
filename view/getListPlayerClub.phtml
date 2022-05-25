@@ -47,6 +47,11 @@
         margin-bottom: 10px;
         border-radius: 2px;
     }
+    #deletePlayerButton{
+        border: 2px solid rgb(131, 188, 237);
+        border-radius: 2px;
+        margin: 2px 4px 2px 4px;
+    }
 </style>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -91,6 +96,25 @@
             });
         });
     });
+
+    $(document).ready(function(){
+        $('#deletePlayerButton').click(function(){
+            let playerID = encodeURI($(this).val());
+            let url = 'addModifyPlayer.php?action=delete';
+            let data = {
+                playerID
+            };
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data,
+                success: function (data) {
+                    $('#searchPlayerTable').html(data);
+                    window.location.reload();
+                }
+            });
+        });
+    })
 </script>
 
 <div class="stylePlayerClub">
@@ -145,7 +169,7 @@
                 <th>Nationality</th>
                 <th>Club</th>
                 <th>Modify</th>
-                <th>Remove Player</th>
+                <th>Remove</th>
             </tr>
             <?php foreach ($listAllPlayer as $player): ?>
             <tr>
@@ -178,7 +202,7 @@
                     <a href="<?php echo $link?>">modify</a>
                 </td>
                 <td>
-                    <input type="button" value="Delete">
+                    <button value="<?=$player->PlayerID?>" id="deletePlayerButton">Delete</button>
                 </td>
             </tr>
             <?php endforeach; ?>
