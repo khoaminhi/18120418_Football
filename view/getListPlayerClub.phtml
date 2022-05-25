@@ -47,7 +47,7 @@
         margin-bottom: 10px;
         border-radius: 2px;
     }
-    #deletePlayerButton{
+    .deletePlayerButton{
         border: 2px solid rgb(131, 188, 237);
         border-radius: 2px;
         margin: 2px 4px 2px 4px;
@@ -59,7 +59,7 @@
     $(document).ready(function () {
         $('#searchPlayer').click(function () {
             let keySearch = encodeURI($('#inputSearchPlayer').val());
-            let url = '/18120418_Football/components/getAllPlayerClub.php?action=searchPlayer&keySearch=' + keySearch;
+            let url = 'getAllPlayerClub.php?action=searchPlayer&keySearch=' + keySearch;
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -77,7 +77,7 @@
             let playerClub = encodeURI($('#playerClubInput').val());
             let playerNumber = encodeURI($('#playerNumberInput').val());
             let playerNationality = encodeURI($('#playerNationalityInput').val());
-            let url = '/18120418_Football/components/getAllPlayerClub.php?action=searchPlayerAdvanced';
+            let url = 'getAllPlayerClub.php?action=searchPlayerAdvanced';
             let data = {
                 playerName,
                 playerPosition,
@@ -96,16 +96,18 @@
             });
         });
     });
+</script>
 
+<script>
     $(document).ready(function(){
-        $('#deletePlayerButton').click(function(){
+        $('.deletePlayerButton').click(function(){
             let playerID = encodeURI($(this).val());
-            let url = 'addModifyPlayer.php?action=delete';
+            let url = '/18120418_Football/components/addModifyPlayer.php?action=delete';
             let data = {
                 playerID
             };
             $.ajax({
-                url: url,
+                url,
                 type: 'POST',
                 data,
                 success: function (data) {
@@ -114,7 +116,7 @@
                 }
             });
         });
-    })
+    });
 </script>
 
 <div class="stylePlayerClub">
@@ -189,7 +191,7 @@
                     <?= $player->ClubName?>
                 </td>
                 <td>
-                    <?php $link="/18120418_Football/components/addModifyPlayer?action=viewModify";
+                    <?php $link="addModifyPlayer?action=viewModify";
                     $link.="&PlayerID=".$player->PlayerID;
                     $link.="&ClubID=".$player->ClubID;
                     $link.="&ClubName=".$player->ClubName;
@@ -202,7 +204,7 @@
                     <a href="<?php echo $link?>">modify</a>
                 </td>
                 <td>
-                    <button value="<?=$player->PlayerID?>" id="deletePlayerButton">Delete</button>
+                    <button value="<?=$player->PlayerID?>" class="deletePlayerButton">Delete</button>
                 </td>
             </tr>
             <?php endforeach; ?>

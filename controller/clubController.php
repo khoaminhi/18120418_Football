@@ -23,26 +23,26 @@ class ClubController{
         $clubCoachID="";
 
         if(isset($_POST["clubName"]) and $_POST["clubName"] != ""){
-            $clubName = $_POST["clubName"];
+            $clubName = urldecode($_POST["clubName"]);
         }
         if(isset($_POST["clubShortName"]) and $_POST["clubShortName"] != ""){
-            $clubShortName = $_POST["clubShortName"];
+            $clubShortName = urldecode($_POST["clubShortName"]);
         }
         if(isset($_POST["clubStadiumID"]) and $_POST["clubStadiumID"] != ""){
-            $clubStadiumID = $_POST["clubStadiumID"];
+            $clubStadiumID = urldecode($_POST["clubStadiumID"]);
         }
         if(isset($_POST["clubCoachID"]) and $_POST["clubCoachID"] != ""){
-            $clubCoachID = $_POST["clubCoachID"];
+            $clubCoachID = URLDECODE($_POST["clubCoachID"]);
         }
 
         $result=true;
         $result = ClubModel::createClub($clubName, $clubShortName, 
             $clubStadiumID, $clubCoachID);
         if($result==true){
-            echo "<script>alert('Add club successfully!');</script>";
+            echo "<script>alert('Add club successfully!'); window.location.href='getAllClub.php'</script>";
         }
         else{
-            echo "<script>alert('Add club failed!');</script>";
+            echo "<script>alert('Add club failed!');window.location.href='getAllClub.php'</script>";
         }
     }
 

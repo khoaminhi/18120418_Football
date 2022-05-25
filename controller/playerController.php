@@ -28,7 +28,7 @@ class PlayerController{
     }
 
     public function getAClubPlayer(){
-        $clubID = $_GET["clubID"];
+        $clubID = URLDECODE($_GET["clubID"]);
         $listAllPlayer = PlayerModel::getAClubPlayer($clubID);
         $cssRePath = $this->cssRePath;
         $CSS_PATH = $this->CSS_PATH;
@@ -65,19 +65,19 @@ class PlayerController{
         $playerClub="";
 
         if(isset($_GET["playerName"]) and $_GET["playerName"] != ""){
-            $playerName = $_GET["playerName"];
+            $playerName = urldecode($_GET["playerName"]);
         }
         if(isset($_GET["playerPosition"]) and $_GET["playerPosition"] != ""){
-            $playerPosition = $_GET["playerPosition"];
+            $playerPosition = urldecode($_GET["playerPosition"]);
         }
         if(isset($_GET["playerNumber"]) and $_GET["playerNumber"] != ""){
-            $playerNumber = $_GET["playerNumber"];
+            $playerNumber = urldecode($_GET["playerNumber"]);
         }
         if(isset($_GET["playerNationality"]) and $_GET["playerNationality"] != ""){
-            $playerNationality = $_GET["playerNationality"];
+            $playerNationality = urldecode($_GET["playerNationality"]);
         }
         if(isset($_GET["playerClub"]) and $_GET["playerClub"] != ""){
-            $playerClub = $_GET["playerClub"];
+            $playerClub = urldecode($_GET["playerClub"]);
         }
 
         $listPlayer = PlayerModel::advancedSearch($playerName, $playerPosition, $playerNumber, $playerNationality, $playerClub);
@@ -101,22 +101,22 @@ class PlayerController{
         $playerClubID="";
 
         if(isset($_POST["playerName"]) and $_POST["playerName"] != ""){
-            $playerName = $_POST["playerName"];
+            $playerName = urldecode($_POST["playerName"]);
         }
         if(isset($_POST["playerPosition"]) and $_POST["playerPosition"] != ""){
-            $playerPosition = $_POST["playerPosition"];
+            $playerPosition = urldecode($_POST["playerPosition"]);
         }
         if(isset($_POST["playerNumber"]) and $_POST["playerNumber"] != ""){
-            $playerNumber = $_POST["playerNumber"];
+            $playerNumber = urldecode($_POST["playerNumber"]);
         }
         if(isset($_POST["playerNationality"]) and $_POST["playerNationality"] != ""){
-            $playerNationality = $_POST["playerNationality"];
+            $playerNationality = urldecode($_POST["playerNationality"]);
         }
         if(isset($_POST["playerClubID"]) and $_POST["playerClubID"] != ""){
-            $playerClubID = $_POST["playerClubID"];
+            $playerClubID = urldecode($_POST["playerClubID"]);
         }
         if(isset($_POST["playerDOB"]) and $_POST["playerDOB"] != ""){
-            $playerDOB = $_POST["playerDOB"];
+            $playerDOB = urldecode($_POST["playerDOB"]);
         }
 
         $result=true;
@@ -154,25 +154,25 @@ class PlayerController{
         $playerClubID="";
 
         if(isset($_POST["playerID"]) and $_POST["playerID"] != ""){
-            $playerID = $_POST["playerID"];
+            $playerID = urldecode($_POST["playerID"]);
         }
         if(isset($_POST["playerName"]) and $_POST["playerName"] != ""){
-            $playerName = $_POST["playerName"];
+            $playerName = urldecode($_POST["playerName"]);
         }
         if(isset($_POST["playerPosition"]) and $_POST["playerPosition"] != ""){
-            $playerPosition = $_POST["playerPosition"];
+            $playerPosition = urldecode($_POST["playerPosition"]);
         }
         if(isset($_POST["playerNumber"]) and $_POST["playerNumber"] != ""){
-            $playerNumber = $_POST["playerNumber"];
+            $playerNumber = urldecode($_POST["playerNumber"]);
         }
         if(isset($_POST["playerNationality"]) and $_POST["playerNationality"] != ""){
-            $playerNationality = $_POST["playerNationality"];
+            $playerNationality = urldecode($_POST["playerNationality"]);
         }
         if(isset($_POST["playerClubID"]) and $_POST["playerClubID"] != ""){
-            $playerClubID = $_POST["playerClubID"];
+            $playerClubID = urldecode($_POST["playerClubID"]);
         }
         if(isset($_POST["playerDOB"]) and $_POST["playerDOB"] != ""){
-            $playerDOB = $_POST["playerDOB"];
+            $playerDOB = urldecode($_POST["playerDOB"]);
         }
 
         $result=true;
@@ -201,7 +201,7 @@ class PlayerController{
     public function deletePlayer(){
         $playerID = "";
         if(isset($_POST["playerID"]) and $_POST["playerID"] != ""){
-            $playerID = $_POST["playerID"];
+            $playerID = urldecode($_POST["playerID"]);
         }
         $result=true;
         $result = PlayerModel::deletePlayer($playerID);

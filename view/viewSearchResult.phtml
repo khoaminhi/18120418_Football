@@ -1,5 +1,27 @@
 <?php
-$result = "<table>
+
+$result = "<script>
+$(document).ready(function(){
+    $('.deletePlayerButton').click(function(){
+        let playerID = encodeURI($(this).val());
+        let url = '/18120418_Football/components/addModifyPlayer.php?action=delete';
+        let data = {
+            playerID
+        };
+        $.ajax({
+            url,
+            type: 'POST',
+            data,
+            success: function (data) {
+                $('#searchPlayerTable').html(data);
+                window.location.reload();
+            }
+        });
+    });
+});
+</script>";
+
+$result .= "<table>
 <tr>
     <th>Full Name</th>
     <th>Position</th>
@@ -36,7 +58,7 @@ foreach($listPlayer as $p){
     $link.='&FullName='.$p->FullName;
     $link.='&Number='.$p->Number;
     $link.='&DOB='.$p->DOB;
-    $result .= "<a href='$link'>modify</a>" . "</td><td><input type='button' value='Delete'></td></tr>";
+    $result .= "<a href='$link'>modify</a>" . "</td><td><button value='". $p->PlayerID. "' class='deletePlayerButton'>Delete</button></td></tr>";
 }
 $result .= "</table>";
 echo $result;

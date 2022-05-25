@@ -40,6 +40,10 @@ class ClubModel{
         //check stadium id if exist
         $query = "SELECT StadiumID FROM stadium WHERE StadiumID = '$clubStadiumID'";
         $result = dbconnect::$conn->query($query);
+        if($result == false){
+            echo "Stadium ID does not exist!";
+            return false;
+        }
         if (mysqli_num_rows($result) <= 0) {
             echo "Stadium ID does not exist";
             return;

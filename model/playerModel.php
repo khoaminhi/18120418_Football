@@ -121,7 +121,7 @@ class PlayerModel{
 
     public static function advancedSearch($playerName, $playerPosition, $playerNumber, $playerNationality, $playerClub){
         dbconnect::connect();
-        $query = "SELECT FullName, Position, Nationality, Number, ClubName "
+        $query = "SELECT PlayerID, FullName, Position, Nationality, Number, ClubName "
          ."FROM player left JOIN club ON player.ClubID = club.ClubID where ";
         $whereArray = array();
         $whereArrLen = 0;
@@ -150,6 +150,7 @@ class PlayerModel{
         {            
             foreach ($result as $row) {
                 $player = new PlayerModel();
+                $player->PlayerID = $row["PlayerID"];
                 $player->FullName = $row["FullName"];
                 $player->Position = $row["Position"];
                 $player->Nationality = $row["Nationality"];
