@@ -4,24 +4,24 @@
         <title>Football Management Website</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <?php   
-            require($CSS_PATH);
+            include($CSS_PATH);
         ?>
     </head>
     <body>
         <div class="pushDownContent">header</div>
         <div id="header">
-            <?php require($HEADER_PATH);?>
+            <?php include($HEADER_PATH);?>
         </div>              
         <div id="banner"></div>        
         <div id="wrapper">   
             <div id="smallbar"></div> 
             <div id="content">                    
-                <?php require($CONTENT_PATH);?>
+                <?php include($CONTENT_PATH);?>
             </div>   
         </div>
         <div class="pushUpContent">footer</div>
         <div id="footer">
-                <?php require($FOOTER_PATH);?>
+                <?php include($FOOTER_PATH);?>
         </div>   
     </body>
 </html>
