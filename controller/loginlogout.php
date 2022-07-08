@@ -45,9 +45,10 @@ class LoginLogoutController
 
     public function logout()
     {
-        session_start();
+        //session_start();
         unset($_SESSION["userid"]);
-        header("Location:loginout.php");
+        //header("Location:loginout.php");
+        echo "<script>window.location.href='loginout.php'</script>";
     }
 }
 ?>

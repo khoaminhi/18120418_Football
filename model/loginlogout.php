@@ -1,4 +1,5 @@
 <?php
+//session_start();
 class LoginLogoutModel{
     public static function login($username, $password){
         dbconnect::connect();
@@ -9,7 +10,6 @@ class LoginLogoutModel{
             $result = false;
         }
         else{
-            session_start();
             $row = $result->fetch_assoc();
             $_SESSION["userid"] = $row["userid"];
             $result = true;

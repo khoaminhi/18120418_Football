@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "./../config/dbconnect.php";
 require_once "./../controller/loginlogout.php";
 require_once "./../model/loginlogout.php";

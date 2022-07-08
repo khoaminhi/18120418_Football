@@ -13,3 +13,7 @@ You must add the JQuery event script into the page again.
 - I confuse PHP's path. I think the relative path start at the page's call.
 For instance, you include the html file which contains the image href. You must change it according to start from
 the calling page.
+
+### 4. Session
+You can use session to apply for the login, logout. Check the session at the top of the file, 
+which holds some route of a relative function group.
